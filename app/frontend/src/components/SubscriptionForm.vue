@@ -15,22 +15,22 @@
                 <input placeholder="Type your email address here…"/>
             </div>
 
-            <button class="button"/>
+            <button />
         </div>
 
-        <span class="service-container">
-            <button class="submit-button">
+        <div class="tos-container">
+            <button class="check-button">
                 <img src="@img/checkmark.svg" />
             </button>
 
-            <span class="grey-text">
+            <span class="text">
                 I agree
 
-                <span class="bold-underline-text">
+                <a href="#" class="bold-underline-text">
                     terms of service
-                </span>
+                </a>
             </span>
-        </span>
+        </div>
     </form>
 </template>
 

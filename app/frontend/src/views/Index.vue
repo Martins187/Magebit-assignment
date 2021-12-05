@@ -3,15 +3,23 @@
         <navigation-bar />
 
         <subscription-form />
-        <submitted-form />
+        <!--<submitted-form />-->
 
         <div class="separating-line"></div>
 
         <div class="social-items-container">
-            <img src="@img/facebook-logo.png" />
-            <img src="@img/instagram-logo.png" />
-            <img src="@img/twitter-logo.png" />
-            <img src="@img/youtube-logo.png" />
+            <div class="facebook-container">
+                <img src="@img/facebook-logo.svg" />
+            </div>
+            <div class="instagram-container">
+                <img src="@img/instagram-logo.svg" />
+            </div>
+            <div class="twitter-container">
+                <img src="@img/twitter-logo.svg" />
+            </div>
+            <div class="youtube-container">
+                <img src="@img/youtube-logo.svg" />
+            </div>
         </div>
     </div>
     
