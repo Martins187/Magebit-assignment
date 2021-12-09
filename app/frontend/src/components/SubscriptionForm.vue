@@ -1,5 +1,5 @@
 <template>
-    <form class="form-container" novalidate>
+    <form class="sm:mt-14.625" novalidate>
         <div class="ml-5 mb-5 pt-1.875 sm:ml-10">
             <h1 class="mb-1 font-georgia text-2xl sm:text-2 leading-10">Subscribe to newsletter</h1>
 
@@ -36,7 +36,7 @@
         </div>
 
         <div class="flex ml-5 mt-1.875 sm:ml-10 sm:mt-1.375">
-            <div :class="[!state.termsConsent ? ['bg-white']: '']" class="h-26px w-26px mr-0.938 bg-blue border-solid border-cream rounded-3px">
+            <div :class="[!state.termsConsent ? ['bg-white']: '']" class="cursor-pointer h-26px w-26px mr-0.938 bg-blue border-solid border-cream rounded-3px">
                 <div @click="state.termsConsent = !state.termsConsent" :class="[!state.termsConsent ? ['bg-white']: '']" class="h-26px w-26px bg-no-repeat bg-center bg-check-mark"></div>
             </div>
             <span class="text-grey">

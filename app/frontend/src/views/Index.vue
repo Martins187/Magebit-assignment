@@ -3,8 +3,8 @@
         <div class="w-full bg-pineapple bg-cover bg-center h-screen sm:w-42.5 sm:bg-gradient-to-b from-white to-glass">
             <navigation-bar />
 
-            <div class="my-44 mx-5 pb-1.875 sm:mt-14.625 sm:ml-6.25 sm:bg-gradient-to-b sm:from-transparent sm:to-transparent bg-gradient-to-b from-white to-glass">
-                <subscription-form />
+            <div class="my-44 mx-5 pb-1.875 sm:ml-6.25 sm:bg-gradient-to-b sm:from-transparent sm:to-transparent bg-gradient-to-b from-white to-glass">
+                <submitted-form />
                 
                 <div class="sm:max-w-25 max-w-18.5 h-1px ml-5 mt-5 sm:ml-10 sm:mt-3.125 bg-cream"></div>
 
