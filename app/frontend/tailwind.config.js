@@ -28,7 +28,7 @@ module.exports = {
         '3.125': '3.125rem',
         '1.25': '1.25rem',
         '14.625': '14.625rem',
-        '3.375': '3.375rem',
+        '1.375': '1.375rem',
         '7.125': '7.125rem',
       },
       maxWidth: {
@@ -92,10 +92,8 @@ module.exports = {
       backgroundColor: ['active', 'hover'],
       boxShadow: ['active', 'hover'],
       scale: ['focus-within'],
-      display: ['children'],
+      textColor: ['active'],
     },
   },
-  plugins: [
-    require('tailwindcss-children'),
-  ],
+  plugins: [],
 }

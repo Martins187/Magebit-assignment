@@ -1,5 +1,5 @@
 <template>
-    <form class="form-container">
+    <form class="form-container" novalidate>
         <div class="ml-5 mb-5 pt-1.875 sm:ml-10">
             <h1 class="mb-1 font-georgia text-2xl sm:text-2 leading-10">Subscribe to newsletter</h1>
 
@@ -13,23 +13,31 @@
             <div class="flex justify-left items-center">
                 <div class="w-1 h-15 bg-blue"></div>
 
-                <input 
+                <input
                     class="w-227px h-6 ml-4 outline-none sm:ml-11"
-                    for="email" 
                     type="email"
                     placeholder="Type your email address here…" 
                     required 
-                    v-model="email"
+                    v-model="state.email"
                 />
             </div>
             <div class="mr-10">
-                <button class="bg-grey-arrow h-3.5 w-6 hover:bg-blue-arrow"/>
+                <button @click="submitForm($event)" class="bg-grey-arrow h-3.5 w-6 hover:bg-blue-arrow"/>
             </div>
         </div>
 
-        <div class="flex ml-5 mt-1.875 sm:ml-10 sm:mt-3.375">
-            <div class="h-26px w-26px mr-0.938 bg-blue rounded-3px">
-                <button class="h-26px w-26px bg-no-repeat bg-center bg-check-mark" />
+        <div class="text-red-600 font-arial h-8 mx-5 sm:mx-10">
+            <div v-if="v$.email.$error">
+                {{v$.email.$errors[0].$message}}
+            </div>
+            <div v-else-if="v$.termsConsent.$error">
+                {{v$.termsConsent.$errors[0].$message}}
+            </div>
+        </div>
+
+        <div class="flex ml-5 mt-1.875 sm:ml-10 sm:mt-1.375">
+            <div :class="[!state.termsConsent ? ['bg-white']: '']" class="h-26px w-26px mr-0.938 bg-blue border-solid border-cream rounded-3px">
+                <div @click="state.termsConsent = !state.termsConsent" :class="[!state.termsConsent ? ['bg-white']: '']" class="h-26px w-26px bg-no-repeat bg-center bg-check-mark"></div>
             </div>
             <span class="text-grey">
                 I agree to
@@ -43,6 +51,48 @@
 </template>
 
 <script setup>
-    import { computed, ref, shallowRef, watch } from 'vue'
+    import { required, email, sameAs, helpers } from '@vuelidate/validators'
+    import { reactive, computed, onBeforeMount } from 'vue'
+    import useValidate from '@vuelidate/core'
+
+    const checkEnding = (value) => value.slice(value.length - 3) != '.co'
+
+    const state = reactive({
+        email:'',
+        termsConsent: false
+    })
+
+    const rules = computed(() => {
+        return{
+            email: { 
+                required : helpers.withMessage('Email address is required', required), 
+                email: helpers.withMessage('Please provide a valid e-mail address', email), 
+                checkEnding: helpers.withMessage('We are not accepting subscriptions from Columbia emails', checkEnding)
+            },
+            termsConsent: {  
+                sameAs: helpers.withMessage('You must accept terms and conditions', sameAs(true)) 
+            }
+        }
+    })
+
+    const v$ = useValidate(rules, state)
+
+    function submitForm(event)
+    {
+        event.preventDefault()
+        v$.value.$validate()
+
+        if(!v$.value.$error)
+        {
+            alert('Success')
+        }
+        else{
+            alert('fail')
+        }
+    }
+
+    onBeforeMount(() => {
+       v$.value.$validate()
+    })
 
 </script>

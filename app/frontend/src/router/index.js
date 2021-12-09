@@ -3,7 +3,7 @@ import Index from '../views/Index.vue'
 
 const routes = [
     {
-        path: '/',
+        path: '/delete',
         component: Index,
         name: 'Email form',
     },
