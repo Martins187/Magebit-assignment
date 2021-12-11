@@ -1,1 +1,0 @@
-apk add npm && npm install -g npm && npm run dev --debug

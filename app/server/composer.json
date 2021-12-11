@@ -1,0 +1,14 @@
+{
+    "autoload": {
+        "psr-4": {
+            "App\\Controllers\\": "app/Controllers",
+            "App\\Models\\": "app/Models",
+            "App\\Requests\\": "app/Requests",
+            "App\\Routing\\": "routes/",
+            "Config\\": "config/",
+            "Framework\\": "vendor/framework",
+            "Framework\\Routing\\": "vendor/framework/Routing",
+            "Framework\\Database\\": "vendor/framework/Database"
+        }
+    }
+}

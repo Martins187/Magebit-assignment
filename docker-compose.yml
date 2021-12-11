@@ -5,12 +5,90 @@ services:
     # image: node:alpine
     build: 
       context: .
-      dockerfile: ./docker/Dockerfile
+      dockerfile: ./docker/node-js-server/Dockerfile
     restart: always
     tty: true
     volumes: 
-      - ./app/frontend/. :/var/www
+      - ./app/client:/var/www
     ports:
       - "3333:3000"
     env_file:
-      - ./app/frontend/.env
+      - ./app/client/.env
+  
+  mage-bit-server-nginx:
+    container_name: mage-bit-server-nginx
+    build:
+      context: .    
+      dockerfile: ./docker/nginx-backend-server/Dockerfile
+    restart: always
+    ports:
+      - 31243:80
+    volumes:
+      - ./app/server:/var/www
+      - ./docker/nginx-backend-server/etc/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - app-network
+    depends_on:
+      - mage-bit-php
+
+  # MySQL server
+  mage-bit-mysql:
+    image: mysql:5.7
+    container_name: mage-bit-mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    tty: true
+    volumes:
+     - db_data:/var/lib/mysql
+    ports:
+      - "17271:3306"
+    environment:
+      MYSQL_DATABASE: mage-bit
+      MYSQL_ROOT_PASSWORD: test
+    networks:
+      - app-network
+      - phpmyadmin-network
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mage-bit-mysql
+      PMA_PASSWORD: test
+    depends_on:
+      - mage-bit-mysql
+    ports:
+      - "8080:80"
+    networks:
+      - phpmyadmin-network
+
+  # PHP server
+  mage-bit-php:
+    build:
+      context: .        
+      dockerfile: ./docker/php-server/Dockerfile
+    container_name: mage-bit-php
+    restart: always
+    tty: true
+    environment:
+      SERVICE_NAME: php
+      SERVICE_TAGS: dev
+    working_dir: /var/www
+    volumes:
+      - ./app/server:/var/www
+    networks:
+      - app-network
+    depends_on:
+      - mage-bit-mysql
+
+# Networks
+networks:
+  app-network:
+    driver: bridge
+  phpmyadmin-network:
+    driver: bridge
+
+# Volumes
+volumes:
+  db_data:
+    driver: local

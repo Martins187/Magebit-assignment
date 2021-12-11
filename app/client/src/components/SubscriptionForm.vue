@@ -53,9 +53,13 @@
 <script setup>
     import { required, email, sameAs, helpers } from '@vuelidate/validators'
     import { reactive, computed, onBeforeMount } from 'vue'
+    import { useRouter, useRoute } from 'vue-router'
     import useValidate from '@vuelidate/core'
+    import User from '@/api/User'
 
     const checkEnding = (value) => value.slice(value.length - 3) != '.co'
+
+    const router = useRouter()
 
     const state = reactive({
         email:'',
@@ -84,10 +88,13 @@
 
         if(!v$.value.$error)
         {
-            alert('Success')
-        }
-        else{
-            alert('fail')
+            User.add({email: state.email}).then((response) => {
+                console.log(response)
+                if(response.data == 'success'){
+                    router.push('/success')
+                }
+            })
+
         }
     }
 
