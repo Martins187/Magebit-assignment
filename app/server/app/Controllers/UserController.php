@@ -13,9 +13,9 @@ class UserController
 {	
 	public function index(): Response
 	{
-		$rules = (new Request)->getRequestData();
+		$data = (new Request)->getRequestData();
 
-		return User::sortBy($rules)->all('*');
+		return User::sortBy($data)->where($data)->select($data);
 	}
 
 	public function store(): Response

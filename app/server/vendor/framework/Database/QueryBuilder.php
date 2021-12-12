@@ -32,9 +32,16 @@ class QueryBuilder extends Builder
         return $this;
     }
 
+    public function where(array $data) : self
+    {
+        $this->prependStatement(" WHERE " . $data['ruleCollumn'] . "='". $data['value'] . "'");
+
+        return $this;
+    }
+
     public function sortBy(array $rules, string $table) : self
     {
-        $this->addStatement("ORDER BY " . $rules['collumn'] . " " . $rules['direction']);
+        $this->addStatement(" ORDER BY " . $rules['sortingCollumn'] . " " . $rules['sortingDirection']);
         $this->table = $table;
 
         return $this;
@@ -48,19 +55,10 @@ class QueryBuilder extends Builder
         return response('success');
     }
 
-    public function all(string $collumn) : Response
+    public function select(array $rules) : Response
     {
-        $this->prependStatement('SELECT '. $collumn . ' FROM '. $this->table .' ');
+        $this->prependStatement('SELECT ' . $rules['selectionRule'] . ' ' . $rules['selectedCollumn'] . ' FROM '. $this->table .' ');
 
         return $this->fetchAll();
     }
-
-    public function selectDistinct(string $collumn) : Response
-    {
-        $this->prependStatement('SELECT DISTINCT '. $collumn . ' FROM '. $this->table .' ');
-
-        return $this->fetchAll();
-    }
-
-
 }

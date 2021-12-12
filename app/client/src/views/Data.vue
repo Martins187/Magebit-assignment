@@ -1,10 +1,13 @@
 <template>
    <div class="mt-10 flex h-full w-full justify-center">
-       <div class="flex mr-10 ">
+       <div class="flex mr-10 h-10">
             <select>
-                <option>DVD</option>
-                <option>Book</option>
-                <option>Furniture</option>
+                <option>All</option>
+                <option 
+                    v-for="emailProvider in emailProviders"
+                    @click="changeSelectedEmailProvider(emailProvider.email_provider)">
+                        {{ emailProvider['email_provider']}}
+                </option>
             </select>
         </div>
         <table class="border-collapse border border-gray-400 table-auto">
@@ -36,9 +39,11 @@
     import { computed, ref, onMounted } from 'vue'
     import User from '@/api/User'
 
-    let users = ref([])
     let sortingCollumn = ref('created_at')
     let sortingDirection = ref('DESC')
+    let users = ref([])
+    let emailProviders = ref([])
+    let selectedEmailProvider = ref('TRUE')
 
     function changeSortingFilters(collumn)
     {
@@ -58,12 +63,31 @@
     {
         User.get(
             {
-                'collumn': sortingCollumn.value, 
-                'direction': sortingDirection.value
+                'sortingCollumn': sortingCollumn.value, 
+                'sortingDirection': sortingDirection.value,
+                'selectedCollumn': '*',
+                'ruleCollumn': 'email_provider',
+                'value': selectedEmailProvider.value
             }
         ).then((response) => {
             users.value = [...response.data] 
-            return response.data
+        })
+    }
+
+    function getEmailProviders()
+    {
+        User.get(
+            {
+                'sortingCollumn': 'email_provider', 
+                'sortingDirection': 'DESC',
+                'selectedCollumn': 'email_provider',
+                'selectionRule': 'DISTINCT',
+                'ruleCollumn': 'email_provider',
+                'value': 'email_provider'
+            }
+        ).then((response) => {
+            console.log(response.data)
+            emailProviders.value = [...response.data] 
         })
     }
 
@@ -81,5 +105,6 @@
     }
 
     getUsers()
+    getEmailProviders()
 
 </script>

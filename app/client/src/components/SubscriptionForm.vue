@@ -96,7 +96,9 @@
             const emailProvider = state.email.split('@')[1].split('.')[0]
 
             User.add({email: state.email, email_provider: emailProvider}).then((response) => {
+
                 console.log(response)
+                
                 if(response.data == 'success'){
                     router.push('/success')
                     serverError.value = false
