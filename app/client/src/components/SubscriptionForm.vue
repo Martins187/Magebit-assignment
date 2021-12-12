@@ -33,6 +33,9 @@
             <div v-else-if="v$.termsConsent.$error">
                 {{v$.termsConsent.$errors[0].$message}}
             </div>
+            <div v-else-if="serverError">
+                Problems with the server
+            </div>
         </div>
 
         <div class="flex ml-5 mt-1.875 sm:ml-10 sm:mt-1.375">
@@ -52,10 +55,12 @@
 
 <script setup>
     import { required, email, sameAs, helpers } from '@vuelidate/validators'
-    import { reactive, computed, onBeforeMount } from 'vue'
+    import { reactive, computed, onBeforeMount, ref } from 'vue'
     import { useRouter, useRoute } from 'vue-router'
     import useValidate from '@vuelidate/core'
     import User from '@/api/User'
+
+    let serverError = ref(false)
 
     const checkEnding = (value) => value.slice(value.length - 3) != '.co'
 
@@ -88,10 +93,16 @@
 
         if(!v$.value.$error)
         {
-            User.add({email: state.email}).then((response) => {
+            const emailProvider = state.email.split('@')[1].split('.')[0]
+
+            User.add({email: state.email, email_provider: emailProvider}).then((response) => {
                 console.log(response)
                 if(response.data == 'success'){
                     router.push('/success')
+                    serverError.value = false
+                }
+                else{
+                    serverError.value = true
                 }
             })
 

@@ -1,5 +1,12 @@
 <template>
    <div class="mt-10 flex h-full w-full justify-center">
+       <div class="flex mr-10 ">
+            <select>
+                <option>DVD</option>
+                <option>Book</option>
+                <option>Furniture</option>
+            </select>
+        </div>
         <table class="border-collapse border border-gray-400 table-auto">
             <tr>
                 <td class="border border-gray-300 px-5">
@@ -47,7 +54,8 @@
         getUsers()
     }
 
-    function getUsers(){
+    function getUsers()
+    {
         User.get(
             {
                 'collumn': sortingCollumn.value, 
@@ -59,7 +67,8 @@
         })
     }
 
-    function deleteUser(id){
+    function deleteUser(id)
+    {
          User.delete([id]).then((response) => {
             if(response.data == 'success')
             {

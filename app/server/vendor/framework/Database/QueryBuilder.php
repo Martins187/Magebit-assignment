@@ -54,4 +54,13 @@ class QueryBuilder extends Builder
 
         return $this->fetchAll();
     }
+
+    public function selectDistinct(string $collumn) : Response
+    {
+        $this->prependStatement('SELECT DISTINCT '. $collumn . ' FROM '. $this->table .' ');
+
+        return $this->fetchAll();
+    }
+
+
 }

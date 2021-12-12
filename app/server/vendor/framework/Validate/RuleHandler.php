@@ -2,9 +2,6 @@
 
 namespace Framework\Validate;
 
-/**
- * Defining all the related validation rules.
- */
 class RuleHandler
 {
     public function required($value) : bool
@@ -12,8 +9,13 @@ class RuleHandler
         return $value != '';
     }
 
-    public function email($value)
+    public function email($value) : bool
     {
         return (filter_var($value, FILTER_VALIDATE_EMAIL) != '');
+    }
+
+    public function regex($value) : bool
+    {
+        return $value != '' && preg_match('/^[A-Za-z0-9_.-]*$/', $value);
     }
 }
