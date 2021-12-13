@@ -2,7 +2,6 @@
 
 namespace App\Controllers;
 
-use stdClass;
 use App\Models\User;
 use Framework\Request;
 use Framework\Response\Response;
@@ -13,7 +12,7 @@ class UserController
 {	
 	public function index(): Response
 	{
-		$data = (new Request)->getRequestData();
+		$data = (new Request)->getDataFromGetRequest();
 
 		return User::sortBy($data)->where($data)->select($data);
 	}

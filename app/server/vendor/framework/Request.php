@@ -22,7 +22,7 @@ class Request
         return json_decode(file_get_contents('php://input'), true);
     }
 
-    public function getRequestData()
+    public function getDataFromGetRequest()
     {
         return $_GET;
     }

@@ -3,9 +3,9 @@
 </template>
 
 <script setup>
-    import { computed } from 'vue'
     import Index from '@/views/Index.vue'
-    import { useRoute } from 'vue-router';
+    import { useRoute } from 'vue-router'
+    import { computed } from 'vue'
 
     const currentRoute = computed(() => {
       return useRoute().name

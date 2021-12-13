@@ -1,18 +1,6 @@
 <?php
 
-use Framework\Request;
 use Framework\Response\Response;
-
-function request($property = null) : mixed
-{
-    $request = new Request();
-
-    if (is_null($property)) {
-        return $request;
-    }
-
-    return $request->get($property);
-}
 
 function response($data = '') : Response
 {

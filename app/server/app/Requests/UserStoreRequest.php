@@ -9,7 +9,7 @@ class UserStoreRequest extends Request
     public function rules(): array
     {
         return [
-            'email' => 'required|email',
+            'email'          => 'required|email',
             'email_provider' => 'required|regex'
         ];
     }

@@ -34,7 +34,7 @@ class QueryBuilder extends Builder
 
     public function where(array $data) : self
     {
-        $this->prependStatement(" WHERE " . $data['ruleCollumn'] . "='". $data['value'] . "'");
+        $this->prependStatement(" WHERE " . $data['ruleCollumn'] . "=". $data['value']);
 
         return $this;
     }
