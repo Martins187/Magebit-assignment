@@ -2,7 +2,7 @@ import axios from 'axios'
 
 class User
 {
-    static serverPath = 'http://martins-balcuns.magebithr.com/api'
+    static serverPath = 'http://localhost:31243'
 
     static get(data)
     {
