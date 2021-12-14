@@ -18,7 +18,7 @@ services:
   mage-bit-client-nginx:
     container_name: mage-bit-client-nginx
     build:
-      context: .        # (!) Dockerfile doesn't see anything outside of this context
+      context: .       # (!) Dockerfile doesn't see anything outside of this context
       dockerfile: ./docker/nginx-client-server/Dockerfile
     restart: always
     ports:
