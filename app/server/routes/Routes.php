@@ -12,7 +12,7 @@ class Routes
 		$routes = new Route;
 		$routes->get('/api/user', UserController::class, 'index'); 
  		$routes->post('/api/user', UserController::class, 'store');		
- 		$routes->delete('api/user', UserController::class, 'destroy');		
+ 		$routes->delete('/api/user', UserController::class, 'destroy');		
 		
 		return $routes;
 	}
